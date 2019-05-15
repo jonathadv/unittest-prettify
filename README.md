@@ -6,3 +6,11 @@
 
 
 A simple module to improve the [unittest](https://docs.python.org/3/library/unittest.html) output.
+
+
+
+
+
+|    |    |
+|----|----|
+|<img src="https://github.com/jonathadv/unittest-prettify/raw/master/assets/screenshot1.png" width="300"> |<img src="https://github.com/jonathadv/unittest-prettify/raw/master/assets/screenshot2.png" width="300"> |
