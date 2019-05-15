@@ -10,6 +10,7 @@ from unittest_prettify.colorize import (
 )
 
 
+@colorize(color=GREEN)
 class Foo(unittest.TestCase):
     def test_1(self):
         """This test comment should be with the Class color set as GREEN"""
@@ -18,16 +19,17 @@ class Foo(unittest.TestCase):
         """This test comment should be with the Class color set as GREEN"""
 
 
+@colorize(color=GREEN)
 class Bar(unittest.TestCase):
-
+    @colorize(color=WHITE)
     def test_1(self):
         """This test comment should be WHITE"""
 
-
+    @colorize(color=RED)
     def test_2(self):
         """This test comment should be RED"""
 
-
+    @colorize(color=BLUE)
     def test_3(self):
         """This test comment should be BLUE"""
 
