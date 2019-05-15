@@ -1,0 +1,13 @@
+language: python
+python:
+    - "3.6"
+
+install:
+    - pip install pipenv
+    - make install
+
+script:
+    - make lint test-cov
+
+after_success:
+    - pipenv run codecov

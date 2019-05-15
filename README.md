@@ -3,7 +3,8 @@
 [![license](https://img.shields.io/pypi/l/unittest-prettify.svg)](https://pypi.org/project/unittest-prettify/)
 [![pypi version](https://img.shields.io/pypi/v/unittest-prettify.svg)](https://pypi.org/project/unittest-prettify/)
 [![python versions](https://img.shields.io/pypi/pyversions/unittest-prettify.svg)](https://pypi.org/project/unittest-prettify/)
-
+[![Build Status](https://travis-ci.org/jonathadv/unittest-prettify.svg?branch=master)](https://travis-ci.org/jonathadv/unittest-prettify)
+[![Code covarage](https://codecov.io/gh/jonathadv/unittest-prettify/branch/master/graph/badge.svg)](https://codecov.io/gh/jonathadv/unittest-prettify)
 
 A simple module to improve the [unittest](https://docs.python.org/3/library/unittest.html) output.
 
