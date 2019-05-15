@@ -1,26 +1,35 @@
 default: help
 
 upgrade-dist-tools:
-	python -m pip install --upgrade setuptools wheel twine
+	pipenv run python -m pip install --upgrade setuptools wheel twine
 
 # Install packages from Pipfile
 install:
-	pipenv install --dev
+	pipenv run pipenv install --dev
 
 # Run pylint
 lint:
-	pipenv run pylint ./setup.py django_test_prettify tests
+	pipenv run pylint ./setup.py unittest_prettify tests sample
 
 
 # Run tests with pytest
 test:
-	pytest -s --verbose ./tests
+	pipenv run python tests.py
 
 
 # Run tests with pytest and coverage
 test-cov:
-	pytest -s --verbose --cov-report term-missing --cov=django_test_prettify ./tests
+	pipenv run coverage run tests.py; \
+	pipenv run coverage report -m
 
+
+# Sort imports as PEP8
+isort:
+	pipenv run isort **/*.py
+
+# Format code with black
+format:
+	pipenv run black unittest_prettify/ tests.py sample.py
 
 # Upload coverage report o codecov.io
 codecov:
@@ -34,10 +43,6 @@ build: upgrade-dist-tools
 # Remove build files
 clean:
 	rm -rf build/ *.egg-info/ dist/
-
-# Sort imports as PEP8
-isort:
-	isort **/*.py
 
 
 # Upload dist content to test.pypi.org

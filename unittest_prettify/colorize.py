@@ -18,15 +18,19 @@ def colorize(color=WHITE):
             _handle_function(something, color)
 
         return something
+
     return wrap
 
 
 def _handle_class(_class, color):
-    for _, v in _class.__dict__.items():
-        _handle_function(v, color)
+    for _, member in _class.__dict__.items():
+        _handle_function(member, color)
 
 
 def _handle_function(_member, color):
     if inspect.ismethod(_member) or inspect.isfunction(_member):
         if _member.__doc__:
-            _member.__doc__ = f"{color}{_member.__doc__.strip()}{RESET}"
+            if not _member.__doc__.startswith(
+                "\u001b["
+            ) and not _member.__doc__.endswith(RESET):
+                _member.__doc__ = f"{color}{_member.__doc__.strip()}{RESET}"

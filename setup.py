@@ -10,7 +10,7 @@ Setup Script
 """
 
 from setuptools import setup
-from django_test_prettify import __title__, __version__, __description__, __author__, __author_email__, __license__
+from unittest_prettify import __title__, __version__, __description__, __author__, __author_email__, __license__
 
 with open("README.md", "r") as fh:
     LONG_DESCRIPTION = fh.read()
@@ -22,8 +22,8 @@ setup(name=__title__,
       author=__author__,
       author_email=__author_email__,
       license=__license__,
-      url='https://github.com/jonathadv/django-test-prettify',
-      packages=['django_test_prettify'],
+      url='https://github.com/jonathadv/unittest_prettify',
+      packages=['unittest_prettify'],
       install_requires=REQUIRED,
       python_requires=">=3.5.*",
       long_description=LONG_DESCRIPTION,

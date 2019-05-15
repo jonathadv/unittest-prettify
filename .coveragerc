@@ -1,0 +1,6 @@
+[run]
+branch = True
+source = unittest_prettify
+
+[report]
+fail_under = 100
