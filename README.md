@@ -1,4 +1,4 @@
-# unittest Prettify
+# unittest prettify
 
 [![license](https://img.shields.io/pypi/l/unittest-prettify.svg)](https://pypi.org/project/unittest-prettify/)
 [![pypi version](https://img.shields.io/pypi/v/unittest-prettify.svg)](https://pypi.org/project/unittest-prettify/)
@@ -18,9 +18,17 @@ A simple module to improve the [unittest](https://docs.python.org/3/library/unit
 
 If you prefer the one in the right side, this module is for you.
 
-It aims to pretiffy the description in the unittest output by colorizing it.
+**unittest prettify** aims to be a set of tools to improve the `unittest` lib output.
+
+**Main features**
+- Change the test description color in both class and method levels.
+- Support to libraries which use `unittest` as bese such as [Django](https://docs.djangoproject.com/en/dev/topics/testing/overview/).
 
 
+## Installing it
+```
+pip install unittest-prettify 
+```
 
 ## Using it
 
