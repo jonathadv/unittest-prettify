@@ -1,6 +1,8 @@
 [run]
 branch = True
 source = unittest_prettify
-
+omit =
+    unittest_prettify/__version__.py
+    unittest_prettify/colors.py
 [report]
 fail_under = 100

@@ -3,16 +3,9 @@ import unittest
 from contextlib import contextmanager
 from io import StringIO
 
-from unittest_prettify.colorize import (
-    BLUE,
-    GREEN,
-    MAGENTA,
-    RED,
-    RESET,
-    WHITE,
-    YELLOW,
-    colorize,
-)
+from unittest_prettify import prettify
+from unittest_prettify.colors import BLUE, GREEN, MAGENTA, RED, RESET, WHITE, YELLOW
+from unittest_prettify.templates import CAKE
 
 
 @contextmanager
@@ -34,25 +27,25 @@ def _extract_test_comment(stderr):
 
 
 class Test:
-    @colorize(color=GREEN)
+    @prettify(color=GREEN)
     class ColorizedClass(unittest.TestCase):
-        @colorize(color=WHITE)
+        @prettify(color=WHITE)
         def test_white(self):
             """This test comment should be WHITE"""
 
-        @colorize(color=RED)
+        @prettify(color=RED)
         def test_red(self):
             """This test comment should be RED"""
 
-        @colorize(color=BLUE)
+        @prettify(color=BLUE)
         def test_blue(self):
             """This test comment should be BLUE"""
 
-        @colorize(color=MAGENTA)
+        @prettify(color=MAGENTA)
         def test_magenta(self):
             """This test comment should be MAGENTA"""
 
-        @colorize(color=YELLOW)
+        @prettify(color=YELLOW)
         def test_yellow(self):
             """This test comment should be YELLOW"""
 
@@ -63,18 +56,27 @@ class Test:
         def test_no_color(self):
             """This test comment should not have color"""
 
-        @colorize(color=BLUE)
+        @prettify(color=BLUE)
         def test_blue(self):
             """This test comment should be BLUE"""
 
-        @colorize(color=RED)
+        @prettify(color=RED)
         def test_red(self):
             """This test comment should be RED"""
 
-    @colorize(color=GREEN)
+    @prettify(color=GREEN)
     class NoCommentClass(unittest.TestCase):
         def test_with_no_comment(self):
             pass
+
+    class TemplateClass(unittest.TestCase):
+        @prettify(template=CAKE)
+        def test_with_cake(self):
+            """This test comment should start with a cake icon"""
+
+        @prettify(color=RED, template=CAKE)
+        def test_red_with_cake(self):
+            """This test comment should start with a cake icon and read color"""
 
 
 class ColorizedClassTestCase(unittest.TestCase):
@@ -112,7 +114,7 @@ class ColorizedClassTestCase(unittest.TestCase):
     )
 
     def test_colorized_class(self):
-        """Should match all test description colors against the @colorize decorator in method or in the class"""
+        """Should match all test description colors against the @prettify decorator in method or in the class"""
         for test in self.tests:
             with captured_output() as (_, err):
                 suite = unittest.TestSuite([Test.ColorizedClass(test["name"])])
@@ -138,7 +140,7 @@ class ColorizedMethodsOnlyTestCase(unittest.TestCase):
     )
 
     def test_colorized_methods(self):
-        """Should match all test description colors against the @colorize decorator in the mothod"""
+        """Should match all test description colors against the @prettify decorator in the mothod"""
         for test in self.tests:
             with captured_output() as (_, err):
                 suite = unittest.TestSuite([Test.NotColorizedClass(test["name"])])
@@ -149,7 +151,7 @@ class ColorizedMethodsOnlyTestCase(unittest.TestCase):
             self.assertEqual(current_value, expected_value)
 
     def test_not_colorized_method(self):
-        """Method without @colorize should not have color"""
+        """Method without @prettify should not have color"""
         with captured_output() as (_, err):
             suite = unittest.TestSuite([Test.NotColorizedClass("test_no_color")])
             unittest.TextTestRunner(verbosity=2).run(suite)
@@ -168,6 +170,30 @@ class NoCommentTestCase(unittest.TestCase):
         current_value = _extract_test_comment(err)
 
         self.assertEqual(current_value, "")
+
+
+class TemplateTestCase(unittest.TestCase):
+    def test_template_cake(self):
+        """Should match a comment with a cake"""
+        with captured_output() as (_, err):
+            suite = unittest.TestSuite([Test.TemplateClass("test_with_cake")])
+            unittest.TextTestRunner(verbosity=2).run(suite)
+        current_value = _extract_test_comment(err)
+        expected_value = (
+            f"🍰 {RESET}This test comment should start with a cake icon{RESET}"
+        )
+
+        self.assertEqual(current_value, expected_value)
+
+    def test_template_cake_red(self):
+        """Should match a comment with a cake and color red"""
+        with captured_output() as (_, err):
+            suite = unittest.TestSuite([Test.TemplateClass("test_red_with_cake")])
+            unittest.TextTestRunner(verbosity=2).run(suite)
+        current_value = _extract_test_comment(err)
+        expected_value = f"🍰 {RED}This test comment should start with a cake icon and read color{RESET}"
+
+        self.assertEqual(current_value, expected_value)
 
 
 if __name__ == "__main__":
